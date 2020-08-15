@@ -15,9 +15,9 @@
 
 
 //init variaveis
-int *numero_elementos;
-int *numero_primos;
-long long unsigned int *lista;
+int *numero_elementos; //numero de elementos a ser processado
+int *numero_primos; //numero de primos achados entre os elementos
+long long unsigned int *lista; //lista contendo elementos
 
 
 //TESTE_PRIMO--------------------------WORKING----------------------
@@ -94,13 +94,13 @@ if (  isPrime(lista[id + g*4])  ){
 }
 
 }
+
+
 //-------------------------------------------------------------
-
-
 int main() {
 
 readDeclareVector();
-//--------------------------------
+//-------------------------------- CALCULANDO NUMERO DE PROCESSOS
 int n_processos = 0;
 if((*numero_elementos) >3){
   n_processos = 4;
@@ -108,7 +108,7 @@ if((*numero_elementos) >3){
 else{
   n_processos = (*numero_elementos);
 }
-//---------------------------------
+//--------------------------------- CRIANDO PROCESSOS E DEFININDO IDS
 pid_t proc1, proc2, proc3, proc4;
 
 if(n_processos>0){
@@ -140,7 +140,7 @@ if((proc4 = fork())== 0){
 }
 }
 
-//---------------------
+//--------------------------------- ESPERANDO TODOS OS FILHOS PROCESSAREM
 if(n_processos>0){
   waitpid(proc1, NULL, 0);
 }
@@ -154,6 +154,7 @@ if(n_processos>3){
   waitpid(proc4, NULL, 0);
 }
 
+//--------------------------------------IMPRIMINDO O NUMERO DE PRIMOS
 printf("%d\n",(*numero_primos) );
 
   return 0;
